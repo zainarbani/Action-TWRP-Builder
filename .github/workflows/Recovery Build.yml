@@ -144,7 +144,7 @@ jobs:
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng && make clean && make ${{ github.event.inputs.BUILD_TARGET }}image -j$(nproc --all)
-        7z a host_out.zip ${ANDROID_HOST_OUT}
+        7z a host_out.zip $ANDROID_HOST_OUT
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Upload to Release
