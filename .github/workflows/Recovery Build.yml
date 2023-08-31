@@ -149,9 +149,6 @@ jobs:
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng && make clean && make ${{ github.event.inputs.BUILD_TARGET }}image -j$(nproc --all)
-        7z a ANDROID_HOST_OUT.zip $ANDROID_HOST_OUT
-        7z a HOST_OUT_EXECUTABLES.zip $HOST_OUT_EXECUTABLES
-        7z a HOST_OUT_SHARED_LIBRARIES.zip $HOST_OUT_SHARED_LIBRARIES
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Upload to Release
@@ -161,9 +158,6 @@ jobs:
           workspace/out/target/product/${{ github.event.inputs.DEVICE_NAME }}/${{ github.event.inputs.BUILD_TARGET }}.img
           workspace/out/target/product/${{ github.event.inputs.DEVICE_NAME }}/*.zip
           workspace/out/target/product/${{ github.event.inputs.DEVICE_NAME }}/*vendor*.img
-          workspace/ANDROID_HOST_OUT.zip
-          workspace/HOST_OUT_EXECUTABLES.zip
-          workspace/HOST_OUT_SHARED_LIBRARIES.zip
         name: ${{ github.event.inputs.DEVICE_NAME }}-${{ github.run_id }}
         tag_name: ${{ github.run_id }}
         body: |
